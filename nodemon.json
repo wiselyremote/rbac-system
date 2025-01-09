@@ -1,0 +1,13 @@
+{
+  "ignore": [
+    ".yarn"
+  ],
+  "watch": [
+    "src"
+  ],
+  "ext": "ts,js,json",
+  "delay": "250",
+  "env": {
+    "NODE_ENV": "development"
+  }
+}

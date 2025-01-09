@@ -1,0 +1,22 @@
+# Step 1: Start with the official Node.js image (version 18)
+FROM node:18
+
+# Set the working directory inside the container to /app
+WORKDIR /app
+
+# Copy package.json and yarn.lock into the container to install dependencies
+COPY package.json yarn.lock ./
+# Set the COREPACK_HOME environment variable to specify where corepack should store its data
+ENV COREPACK_HOME=/corepack
+# Enable corepack (which manages Yarn and other package managers) and configure Yarn
+RUN corepack enable && \
+    yarn set version berry && \
+    yarn config set nodeLinker pnp && \
+    yarn config set enableGlobalCache false && \
+    yarn
+
+# Copy the rest of the project files into the container (this includes the source code)
+COPY . .
+
+# Define the default entry point to start the application in development mode using the "start:dev" script in package.json
+ENTRYPOINT ["yarn", "start:dev"]

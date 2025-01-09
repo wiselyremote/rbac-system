@@ -1,0 +1,23 @@
+services:
+
+  backend:
+    image: rbac-system-backend
+    container_name: rbac-system-backend
+    build:
+      context: .
+      dockerfile: dockerfile.dev
+    env_file: .env
+    volumes:
+      - ./:/app
+    ports:
+      - 8080:8080
+  mongo:
+    image: mongo:5.0
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+
+volumes:
+  mongo-data:
+    name: rbac-system-mongo-data
